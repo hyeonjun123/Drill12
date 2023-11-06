@@ -48,10 +48,14 @@ class Zombie:
     def draw(self):
         if self.dir < 0:
             Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
+            draw_rectangle(*self.get_bb())  # 튜플이 나오기때문에 분리해줘야한다. 튜플을 풀어헤쳐서 인자로전달
         else:
             Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
-
+            draw_rectangle(*self.get_bb())  # 튜플이 나오기때문에 분리해줘야한다. 튜플을 풀어헤쳐서 인자로전달
 
     def handle_event(self, event):
         pass
 
+
+    def get_bb(self):
+        return self.x -80, self.y -100, self.x+80, self.y+100

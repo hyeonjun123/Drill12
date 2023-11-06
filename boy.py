@@ -51,12 +51,6 @@ FRAMES_PER_ACTION = 8
 
 
 
-
-
-
-
-
-
 class Idle:
 
     @staticmethod
@@ -206,5 +200,17 @@ class Boy:
     def draw(self):
         self.state_machine.draw()
         self.font.draw(self.x-10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
+        #디버그용 바운딩박스
+        draw_rectangle(*self.get_bb()) #튜플이 나오기때문에 분리해줘야한다. 튜플을 풀어헤쳐서 인자로전달
+
 
     # fill here
+    def get_bb(self):
+        return self.x - 20, self.y -50, self.x +20, self.y+50 #튜플로 넘어온다.
+
+    def get_bb2(self):
+        return self.x -50, self.y-20, self.x+50, self.y-50 #누웠을때
+
+    def handle_collision(self, group, otehr):
+        if group == 'boy:ball': #아,, 볼과 충돌이구나
+            self.ball_count += 1
